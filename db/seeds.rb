@@ -2,7 +2,7 @@ require 'csv'
 
 datafile = Rails.root + 'db/data/mass_health_data.csv'
 
-# TownHealthRecord.destroy_all
+TownHealthRecord.destroy_all
 
 CSV.foreach(datafile, headers: true) do |row|
 
@@ -10,7 +10,7 @@ CSV.foreach(datafile, headers: true) do |row|
     unless col[1] == nil
       col[1].gsub!('$', '')
       col[1].gsub!(',', '')
-      col[1] = nil if col[1] == 'NA'
+      col[1] = nil if col[1] == 'NA' || col[1].include?('Note:')
     end
 
   end
