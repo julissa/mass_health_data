@@ -2,17 +2,14 @@ require 'csv'
 
 datafile = Rails.root + 'db/data/mass_health_data.csv'
 
-# TownHealthRecord.destroy_all
-
 CSV.foreach(datafile, headers: true) do |row|
 
   row.each do |col|
-    unless col[1] == nil
+    unless col[1] == nil || col[0] == 'Geography'
       col[1].gsub!('$', '')
       col[1].gsub!(',', '')
       col[1] = nil if col[1] == 'NA' || col[1].include?('Note:')
     end
-
   end
 
   TownHealthRecord.find_or_initialize_by({town: row[0]}) do |hr|
