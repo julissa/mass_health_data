@@ -12,7 +12,7 @@ CSV.foreach(datafile, headers: true) do |row|
     end
   end
 
-  TownHealthRecord.find_or_initialize_by({town: row[0]}) do |hr|
+  TownHealthRecord.find_or_create_by({town: row[0]}) do |hr|
     hr.town = row[0]
     hr.total_population_2005 =  row[1]
     hr.population_0_to_19_2005 =  row[2]
@@ -28,7 +28,6 @@ CSV.foreach(datafile, headers: true) do |row|
     hr.percent_multiple_births_2005_to_2008 =  row[12]
     hr.percent_publicly_financed_prenatal_care_2005_to_2008 =  row[13]
     hr.percent_teen_births_2005_to_2008 =  row[14]
-    hr.save!
   end
 
 end
